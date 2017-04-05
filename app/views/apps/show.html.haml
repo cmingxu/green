@@ -1,0 +1,27 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @app.name
+%p
+  %b Owner:
+  = @app.owner
+%p
+  %b Contact:
+  = @app.contact
+%p
+  %b Appid:
+  = @app.appid
+%p
+  %b Token:
+  = @app.token
+%p
+  %b Last active time:
+  = @app.last_active_time
+%p
+  %b Last active ip:
+  = @app.last_active_ip
+
+= link_to 'Edit', edit_app_path(@app)
+\|
+= link_to 'Back', apps_path

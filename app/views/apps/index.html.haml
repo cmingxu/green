@@ -1,0 +1,29 @@
+%table.table.table-stripped
+  %thead
+    %tr
+      %th 商户名
+      %th 联系人
+      %th 联系方式
+      %th Appid
+      %th Token
+      %th Last active time
+      %th Last active ip
+      %th
+      %th
+      %th
+
+  %tbody
+    - @apps.each do |app|
+      %tr
+        %td= app.name
+        %td= app.owner
+        %td= app.contact
+        %td= app.appid
+        %td= app.token
+        %td= app.last_active_time
+        %td= app.last_active_ip
+        %td= link_to 'Show', app
+        %td= link_to 'Edit', edit_app_path(app)
+        %td= link_to 'Destroy', app, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+= link_to 'New App', new_app_path

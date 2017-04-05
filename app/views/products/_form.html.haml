@@ -1,0 +1,38 @@
+= form_for(@product) do |f|
+  - if @product.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@product.errors.count, "error")
+        prohibited this product from being saved:
+      %ul
+        - @product.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :desc
+    = f.text_area :desc, id: "myEditor"
+  .field
+    = f.label :price
+    = f.text_field :price
+  .field
+    = f.label :origin_price
+    = f.text_field :origin_price
+  .field
+    = f.label :is_publish
+    = f.check_box :is_publish
+  .field
+    = f.label :quantity
+    = f.text_field :quantity
+  = (1..8).to_a.map do |i|
+    .field
+      = f.label "icon#{i}"
+      = f.file_field "icon#{i}",  multiple: true 
+      = f.hidden_field "icon#{i}_cache"
+
+      = image_tag(@product.send("icon#{i}_url")) if @product.send("icon#{i}").present?
+      = f.check_box "remove_icon#{i}"
+
+  .actions
+    = f.submit
