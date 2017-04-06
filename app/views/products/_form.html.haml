@@ -1,4 +1,4 @@
-= form_for(@product) do |f|
+= form_for(@product, class: 'form', multipart: true) do |f|
   - if @product.errors.any?
     #error_explanation
       %h2
@@ -28,7 +28,7 @@
   = (1..8).to_a.map do |i|
     .field
       = f.label "icon#{i}"
-      = f.file_field "icon#{i}",  multiple: true 
+      = f.file_field "icon#{i}"
       = f.hidden_field "icon#{i}_cache"
 
       = image_tag(@product.send("icon#{i}_url")) if @product.send("icon#{i}").present?

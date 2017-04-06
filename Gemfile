@@ -25,6 +25,8 @@ gem "twitter-bootstrap-rails"
 gem 'annotate'
 gem 'kaminari'
 gem 'carrierwave', '~> 1.0'
+gem "mini_magick"
+
 
 gem 'rails-bootstrap-markdown'
 

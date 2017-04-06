@@ -20,6 +20,7 @@ class Product < ApplicationRecord
 
   belongs_to :app
 
+  validates :icon1, presence: true
   validates :name, presence: true, length: { within: 1..100 }
   validates :sku, presence: true, uniqueness: true
   validates :price, presence: true
