@@ -1,38 +1,17 @@
-= form_for(@product, class: 'form', multipart: true) do |f|
-  - if @product.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(@product.errors.count, "error")
-        prohibited this product from being saved:
-      %ul
-        - @product.errors.full_messages.each do |message|
-          %li= message
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :desc
-    = f.text_area :desc, id: "myEditor"
-  .field
-    = f.label :price
-    = f.text_field :price
-  .field
-    = f.label :origin_price
-    = f.text_field :origin_price
-  .field
-    = f.label :is_publish
-    = f.check_box :is_publish
-  .field
-    = f.label :quantity
-    = f.text_field :quantity
-  = (1..8).to_a.map do |i|
-    .field
-      = f.label "icon#{i}"
-      = f.file_field "icon#{i}"
-      = f.hidden_field "icon#{i}_cache"
-
-      = image_tag(@product.send("icon#{i}_url")) if @product.send("icon#{i}").present?
-      = f.check_box "remove_icon#{i}"
+= simple_form_for(@product, class: 'form-horizontal', multipart: true) do |f|
+  = f.input :name, label: "品名"
+  = f.input :price, label: "单价"
+  = f.input :origin_price, label: "原价"
+  = f.input :quantity, label: "库存"
+  = f.input :is_publish, label: "上架"
+  .row
+    - (1..8).to_a.map do |i|
+      .col-lg-1
+        = f.file_field "icon#{i}"
+        = f.hidden_field "icon#{i}_cache"
+        = image_tag(@product.send("icon#{i}_url")) if @product.send("icon#{i}").present?
+        = f.check_box "remove_icon#{i}"
+  = f.input :desc, id: "myEditor", as: :text, label: "描述"
 
   .actions
-    = f.submit
+    = f.submit "submit", class: 'btn btn-lg'

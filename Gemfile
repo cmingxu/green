@@ -26,6 +26,8 @@ gem 'annotate'
 gem 'kaminari'
 gem 'carrierwave', '~> 1.0'
 gem "mini_magick"
+gem 'simple_form'
+
 
 
 gem 'rails-bootstrap-markdown'
