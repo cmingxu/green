@@ -27,7 +27,8 @@ gem 'kaminari'
 gem 'carrierwave', '~> 1.0'
 gem "mini_magick"
 gem 'simple_form'
-
+gem "bower-rails", "~> 0.11.0"
+gem "font-awesome-rails"
 
 
 gem 'rails-bootstrap-markdown'

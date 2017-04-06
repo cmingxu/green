@@ -4,14 +4,23 @@
   = f.input :origin_price, label: "原价"
   = f.input :quantity, label: "库存"
   = f.input :is_publish, label: "上架"
-  .row
-    - (1..8).to_a.map do |i|
-      .col-lg-1
-        = f.file_field "icon#{i}"
-        = f.hidden_field "icon#{i}_cache"
-        = image_tag(@product.send("icon#{i}_url")) if @product.send("icon#{i}").present?
-        = f.check_box "remove_icon#{i}"
-  = f.input :desc, id: "myEditor", as: :text, label: "描述"
+  - (1..8).to_a.in_groups_of(4).each do |g|
+    .row
+      - g.map do |i|
+        .col-lg-2.col-md-2.col-sm-2.text-center.icon_holder
+          .preview_holder
+            = image_tag(@product.send("icon#{i}").try(:small).try(:url)) if @product.send("icon#{i}").present?
+
+          - if @product.send("icon#{i}").path.present?
+            移除
+            = f.check_box "remove_icon#{i}"
+
+          %label.btn.btn-warning.btn-file
+            上传
+            = f.file_field "icon#{i}"
+            = f.hidden_field "icon#{i}_cache"
+
+  = f.input :desc, id: "myEditor", as: :text, label: "描述", input_html: { data: {provide: 'markdown'} }
 
   .actions
     = f.submit "submit", class: 'btn btn-lg'

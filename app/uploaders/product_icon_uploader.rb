@@ -33,8 +33,11 @@ class ProductIconUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
    version :thumb do
-      process :resize_to_fit => [200, 200]
-     #process convert: :png
+      process :resize_to_fit => [50, 50]
+   end
+
+   version :small do
+      process :resize_to_fill => [100, 100]
    end
 
   # Add a white list of extensions which are allowed to be uploaded.
