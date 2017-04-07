@@ -1,42 +1,17 @@
-%p#notice= notice
-
-.row
-  %panel
-
 .row
   .col-lg-6
-    %table.table.table-striped.table-hover
-      %thead
-        %tr
-          %th ID
-          %th SKU
-          %th 品名
-          %th 价格/原价
-          %th 销量
-          %th 上架?
-          %th 库存
-          %th{:colspan => "3"}
+    %table.table.quick_link_table
       %tbody
-        - @products.each do |product|
-          %tr
-            %td
-              = link_to "##{product.id}", product
-              = image_tag(product.icon1.thumb)
-            %td= product.sku
-            %td= product.name
-            %td
-              = "(#{product.origin_price})"
-              \/
-              %span.red
-                = product.price
-            %td= product.quantity
-            %td= product.is_publish ? "是" : "否"
-            %td
-              = link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' }
-              = link_to 'Show', product
-              = link_to 'Edit', edit_product_path(product)
-    = paginate @products
-  .col-lg-6
+        %tr
+          %td.by_what_td
+            上架?
+          %td.quick_link_td.text-left
+            = link_to "不限", products_path()
+            = link_to "已上架", products_path(q: {is_publish: true})
+            = link_to "未上架", products_path(q: {is_publish: false})
+
+    = render :partial => "list", locals: { products: @products }
+  .col-lg-6#product_form_holder
     = render :partial => "form"
 
 

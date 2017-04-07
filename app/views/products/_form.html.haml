@@ -1,4 +1,8 @@
 = simple_form_for(@product, class: 'form-horizontal', multipart: true) do |f|
+  .actions
+    = f.submit "submit", class: 'btn btn-primary pull-right'
+  .clearfix
+
   = f.input :name, label: "品名"
   = f.input :price, label: "单价"
   = f.input :origin_price, label: "原价"
@@ -22,5 +26,3 @@
 
   = f.input :desc, id: "myEditor", as: :text, label: "描述", input_html: { data: {provide: 'markdown'} }
 
-  .actions
-    = f.submit "submit", class: 'btn btn-lg'

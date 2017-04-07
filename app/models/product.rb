@@ -14,6 +14,10 @@
 #
 
 class Product < ApplicationRecord
+  before_validation on: :create do
+    self.sku = Product.last.sku.next
+  end
+
   1.upto(8) do |i|
     mount_uploader "icon#{i}", ProductIconUploader
   end

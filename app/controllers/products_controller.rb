@@ -4,7 +4,8 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.page(params[:page])
+    @q = current_app.products.ransack(params[:q])
+    @products = @q.result.page params[:page]
     @product = current_app.products.new
   end
 
@@ -20,6 +21,10 @@ class ProductsController < ApplicationController
 
   # GET /products/1/edit
   def edit
+    #respond_to do |format|
+      #format.html
+      #format.js
+    #end
   end
 
   # POST /products
@@ -43,7 +48,7 @@ class ProductsController < ApplicationController
   def update
     respond_to do |format|
       if @product.update(product_params)
-        format.html { redirect_to @product, notice: 'Product was successfully updated.' }
+        format.html { redirect_to products_path, notice: 'Product was successfully updated.' }
         format.json { render :show, status: :ok, location: @product }
       else
         format.html { render :edit }
@@ -63,18 +68,18 @@ class ProductsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_product
-      @product = Product.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_product
+    @product = Product.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def product_params
-      icon_related_attributes = 1.upto(8).map do |i|
-        ["icon#{i}", "icon#{i}_cache", "remove_icon#{i}"]
-      end.flatten.map(&:to_sym)
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def product_params
+    icon_related_attributes = 1.upto(8).map do |i|
+      ["icon#{i}", "icon#{i}_cache", "remove_icon#{i}"]
+    end.flatten.map(&:to_sym)
 
-      params.require(:product).permit([:name, :desc, :price, :origin_price, :is_publish,
-                                       :quantity].concat(icon_related_attributes))
-    end
+    params.require(:product).permit([:name, :desc, :price, :origin_price, :is_publish,
+                                     :quantity].concat(icon_related_attributes))
+  end
 end
