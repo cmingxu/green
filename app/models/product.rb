@@ -4,18 +4,28 @@
 #
 #  id           :integer          not null, primary key
 #  name         :string
+#  sku          :string
 #  desc         :text
 #  price        :decimal(, )
 #  origin_price :decimal(, )
 #  is_publish   :boolean
 #  quantity     :integer
+#  app_id       :integer
+#  icon1        :string
+#  icon2        :string
+#  icon3        :string
+#  icon4        :string
+#  icon5        :string
+#  icon6        :string
+#  icon7        :string
+#  icon8        :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
 
 class Product < ApplicationRecord
   before_validation on: :create do
-    self.sku = Product.last.sku.next
+    self.sku =  "#XX#{rand(100000)}"
   end
 
   1.upto(8) do |i|
